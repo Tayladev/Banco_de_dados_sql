@@ -1,4 +1,4 @@
--- 4.1 CRIAÇÃO DAS TABELAS
+
 
 CREATE TABLE categoria (
     id   INT PRIMARY KEY,
@@ -35,7 +35,7 @@ CREATE TABLE lote (
 );
 
 
--- 4.2 INSERÇÃO DE DADOS
+--  INSERÇÃO DE DADOS aqui 
 
 -- Tabelas de apoio
 INSERT INTO categoria (id, nome) VALUES
@@ -69,8 +69,7 @@ INSERT INTO alimento (id, nome, id_categoria, id_local) VALUES
     (10, 'Farinha',    4, 3);
 
 
--- Lotes
--- Situação calculada para a data de referência 2026-11-19
+-- Situação calculada para a data  referência 
 
 INSERT INTO lote (id, id_alimento, id_situacao, quantidade, data_validade) VALUES
     (1,  1,  1, 12, '2026-11-15'),
@@ -87,9 +86,9 @@ INSERT INTO lote (id, id_alimento, id_situacao, quantidade, data_validade) VALUE
     (12, 4,  3, 15, '2026-11-28');
 
 
--- 4.3 RELATÓRIOS
 
--- RELATÓRIO 1: Listagem geral dos alimentos
+
+-- RELATÓRIO Listagem geral dos alimentos
 
 SELECT a.nome AS alimento,
        c.nome AS categoria,
@@ -105,7 +104,7 @@ JOIN situacao s ON s.id = lt.id_situacao
 ORDER BY lt.data_validade;
 
 
--- RELATÓRIO 2: Alertas de validade
+-- RELATÓRIO vai ficar Alertas de validade
 
 SELECT a.nome AS alimento,
        lt.quantidade,
@@ -118,7 +117,7 @@ WHERE lt.id_situacao IN (1, 2)
 ORDER BY lt.id_situacao, lt.data_validade;
 
 
--- RELATÓRIO 3: Alimentos e quantidade total por categoria
+-- RELATÓRIO Alimentos e quantidade total por categoria
 
 SELECT c.nome AS categoria,
        COUNT(DISTINCT a.id) AS qtd_alimentos,
@@ -130,7 +129,7 @@ GROUP BY c.nome
 ORDER BY c.nome;
 
 
--- RELATÓRIO 4: Quantidade total por local de armazenamento
+-- RELATÓRIO Quantidade total por local de armazenamento
 
 SELECT l.nome AS local,
        COUNT(DISTINCT a.id) AS qtd_alimentos,
@@ -142,7 +141,7 @@ GROUP BY l.nome
 ORDER BY l.nome;
 
 
--- RELATÓRIO 5: Resumo de lotes por situação
+-- RELATÓRIO  Resumo por situação vai expor
 
 SELECT s.descricao AS situacao,
        COUNT(lt.id) AS qtd_lotes
@@ -152,7 +151,7 @@ GROUP BY s.id, s.descricao
 ORDER BY s.id;
 
 
--- RELATÓRIO 6: Situação recalculada pela data
+-- RELATÓRIO Situação recalculada pela data 
 
 SELECT a.nome AS alimento,
        lt.data_validade,
@@ -166,7 +165,7 @@ JOIN alimento a ON a.id = lt.id_alimento
 ORDER BY lt.data_validade;
 
 
--- RELATÓRIO 7: Lotes que vencem nos próximos 7 dias
+-- RELATÓRIO Lotes que vencem entram
 
 SELECT a.nome AS alimento,
        lt.quantidade,
@@ -177,7 +176,7 @@ WHERE lt.data_validade BETWEEN '2026-11-19' AND '2026-11-26'
 ORDER BY lt.data_validade;
 
 
--- RELATÓRIO 8: Alimentos com mais de um lote
+-- RELATÓRIO Alimentos com mais de um lote
 
 SELECT a.nome AS alimento,
        COUNT(lt.id) AS qtd_lotes,
